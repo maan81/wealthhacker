@@ -34,13 +34,13 @@
     <![endif]-->
 </head>
 
+
+<body>
+
 <!-- Preloader -->
 <div id="preloader">
     <div id="status">&nbsp;</div>
 </div>
-
-<body>
-
 
 <div id="sb-site">
 <div class="boxed">
@@ -203,11 +203,11 @@
                     <div class="panel-heading"><i class="fa fa-comments"></i> Latest Stock Prices Viewed</div>
                     <div class="panel-body">
 						<ol class="service-list list-unstyled">
-                            <li><h4><a href="#">AAPL</h4></li>
-                            <li><h4><a href="#">GOOG</h4></li>
-							<li><h4><a href="#">BAC</h4></li>
-							<li><h4><a href="#">MSFT</h4></li>
-							<li><h4><a href="#">EBAY</h4></li>
+                            <li><h4><a href="#">AAPL</a></h4></li>
+                            <li><h4><a href="#">GOOG</a></h4></li>
+							<li><h4><a href="#">BAC</a></h4></li>
+							<li><h4><a href="#">MSFT</a></h4></li>
+							<li><h4><a href="#">EBAY</a></h4></li>
                         </ol>
                     </div>
                 </div>
@@ -225,7 +225,7 @@
 
 <aside id="footer-widgets">
 
-     <?php include_once('/template/footer.php'); ?>
+     <?php include_once('template/footer.php'); ?>
 	 
 	 
 </aside> <!-- footer-widgets -->
