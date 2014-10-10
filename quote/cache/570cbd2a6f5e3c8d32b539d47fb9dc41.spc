@@ -1,0 +1,1 @@
+a:3:{s:3:"url";s:27:"http://smashingmagazine.com";s:8:"feed_url";s:48:"http://feedproxy.feedburner.com/SmashingMagazine";s:5:"build";i:20081219;}
