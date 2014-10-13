@@ -2,12 +2,14 @@
 
 //==============================================================================
 // Includes
+   
+   $src = dirname(dirname(__FILE__));
 
-   require('config/config.php');
-   require('include/db.php');
-   require('quote/inc/simplepie.inc');
-   include('include/functions.php');
-   include('include/logging.php'); // loging class
+   require($src.'/config/config.php');
+   require($src.'/include/db.php');
+   require($src.'/quote/inc/simplepie.inc');
+   include($src.'/include/functions.php');
+   include($src.'/include/logging.php'); // loging class
 
 //==============================================================================
 

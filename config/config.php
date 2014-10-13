@@ -43,7 +43,7 @@ $config['symbols'] = [ 	'aaa',
 					];
 
 
-$config['log']['dir']  = 'logs/';
+$config['log']['dir']  = dirname(dirname(__FILE__)).'/logs/';
 $config['log']['file'] = 'log.log';
 
 

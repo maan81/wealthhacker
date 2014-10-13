@@ -285,7 +285,7 @@ shuffle($files);
         <div class="col-md-4">
             <aside class="sidebar">
                 <div class="block">
-                    <div class="input-group">
+                    <div id="search_div" class="input-group">
                       <input type="text" placeholder="Search for stocks..." class="form-control">
                       <span class="input-group-btn">
                         <button class="btn btn-primary" type="button"><i class="fa fa-search"></i></button>
@@ -483,6 +483,9 @@ STWT.Widget({container: 'stocktwits-widget-news', symbol: '<?php $str = $stock[0
 <script src="js/syntaxhighlighter/shBrushJScript.js"></script>
 
 <script src="js/app.js"></script>
+
+<!-- Autocomplete dropdown on search -->
+<script type="text/javascript" src="js/autocomplete.js"></script>
 
 </body>
 
