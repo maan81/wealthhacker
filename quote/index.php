@@ -1,6 +1,6 @@
 <?php
 include_once('funct.php');
- 
+
 $objYahooStock = new YahooStock;
  
 /**
@@ -28,6 +28,40 @@ $objYahooStock->addFormat("snl1d1t1p2vmm3m4ee8djkhgj1j4p2qr1rym7m5oc1j6s6k1");
 
 $objYahooStock->addStock($_GET['symbol']);
 
+
+//-------------------------------------------
+//update access log of symbols
+
+  //validate & sanitaze variable
+  $s = filter_var(
+                  $_GET['symbol'], 
+                  FILTER_VALIDATE_REGEXP,
+                  array("options"=>array("regexp"=>"/^[a-zA-Z]{1,6}$/"))
+                );
+
+  //update for valid symbol
+  if($s){
+    //include settings
+    include_once('../config/config.php');
+    include_once('../include/db.php');
+
+    // init current datetime
+    $datetime = new DateTime(null, new DateTimeZone('UTC'));
+
+    // init & exec db 
+    (new Database($config['db']))
+            ->queries_update_log( $config['db']['table_queries'],  //db table name
+                                  $s,                              //symbol
+                                  $datetime->format('Y-m-d H:i:s') //current datetime
+                                );
+
+    // clear declared variables
+    unset($datetime);
+    unset($config);
+  }
+  unset($s);
+
+//-------------------------------------------
  
 /**
  * Printing out the data

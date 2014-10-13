@@ -5,6 +5,8 @@
 */
 class Database{
 	
+	public $sql;
+
 	private $server;
 	private $database;
 	private $username;
@@ -49,7 +51,7 @@ class Database{
 
 		$sql .= ';';
 
-		// _print_r($sql,false);
+		$this->sql = $sql;
 
 		$res = mysqli_query($this->con,$sql);
 
@@ -85,35 +87,48 @@ class Database{
 			$first = false;	
 		}
 		$sql .= ');';
-		// _print_r($sql,false);
+
+		$this->$sql=$sql;
+
 		mysqli_query($this->con,$sql);
 
 		self::disconnect();
 	}
 
 
-	function update_conversion($table,$data){
+	function queries_update_log($table,$symbol,$datetime){
+
+		// chk if existing symbol exists
+		$data = $this->get($table,' AND symbol = "'.$symbol.'"');
+
+
+		// insert
+		if(count($data)==0){
+
+			$datetime = new DateTime(null, new DateTimeZone('UTC'));
+   
+   			$this->insert($table,[ 'symbol'  => $symbol,
+   								   'datetime'=> $datetime->format('Y-m-d H:i:s')
+								]
+						);
+   			return;
+
+		}
+
 
 		self::connect();
 
-		$keys = array_keys($data);
-		$keys[] = 'Count';
-
-		// $sql = ' INSERT INTO '.$table.' ( '.implode(',',$keys).' ) '.
-		// 		' VALUES ( "'.implode('", "', $data).'" ); ';
-
+		// update
 		$sql = 'UPDATE '.$table.' SET '.
-					' `Datetime`="'.$data['Datetime'].'", '.
-					' `Count`=`Count` + 1 '.
+					' datetime="'.$datetime.'", '.
+					' count=count+1 '.
 				' WHERE 1 '.
 				
-				' AND Base="'.$data['Base'].'" '.
-				' AND Target="'.$data['Target'].'" '.
-				' AND `Amount`='.$data['Amount'].' '.
-				
+				' AND symbol="'.$symbol.'" '.
 				' ; ';
 
-		// _print_r($sql,false);
+		$this->sql = $sql;
+
 		mysqli_query($this->con,$sql);
 
 		self::disconnect();
@@ -125,19 +140,13 @@ class Database{
 
 		$sql = 'DELETE FROM '.$table.' WHERE 1 ';
 
-		// $datetime = new DateTime(null, new DateTimeZone('UTC'));
-		// $datetime->modify($range);
-		// $earlier =  $datetime->format('Y-m-d H:i:s');
-
-		// $sql .= ' AND Datetime 	<= "'.$earlier.'"';
-
 		if($where_clause){
 			$sql .= $where_clause;
 		}
 
 		$sql .= ';';
 
-		// _print_r($sql,false);
+		$this->sql = $sql;
 
 		mysqli_query($this->con,$sql);
 
@@ -150,7 +159,7 @@ class Database{
 
 		$sql = 'TRUNCATE TABLE  '.$table.';';
 
-		// _print_r($sql,false);
+		$this->sql = $sql;
 
 		mysqli_query($this->con,$sql);
 

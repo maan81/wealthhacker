@@ -149,8 +149,9 @@
 
             // store img from external url to local server
             copy($img_url, $img);
-// _print_r($img_url,false);
-// _print_r($img,false);
+            
+            // _print_r($img_url,false);
+            // _print_r($img,false);
 
             // !!! resize img not resizing !!!!
             Img_Resize($img,480,320);

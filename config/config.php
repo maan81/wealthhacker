@@ -17,6 +17,7 @@ $config['db']['password'] = 'password';
  * Database tables
  */
 $config['db']['table_news'] = 'news';
+$config['db']['table_queries'] = 'queries';
 
 
 
@@ -31,7 +32,11 @@ $config['feed_url'] = 'http://www.bing.com:80/news/search?format=rss&q=';
 // $config['feed_url'] = 'http://articlefeeds.nasdaq.com/nasdaq/symbols?symbol='.$symbol,
 
 
-$config['symbols'] = [ 	'aapl',
+$config['symbols'] = [ 	'aaa',
+						'aapl',
+						'bac',
+						'bbb',
+						'ebay',
 						'goog',
 						'msft',
 						'yhoo',

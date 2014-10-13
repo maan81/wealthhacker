@@ -51,3 +51,20 @@ function Img_Resize($path,$rs_width,$rs_height) {
 function validate($str){
 	return true;
 }
+
+
+/**
+ * Update symbol count
+ *
+ * @param int ---- symbol
+ */
+function update_symbol_count($symbol){
+
+   require('config/config.php');
+   require('include/db.php');
+
+
+   // init db access
+   $db = new Database($config['db']);
+
+}
