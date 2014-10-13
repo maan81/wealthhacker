@@ -39,7 +39,7 @@
    // generate where clause
    $datetime = new DateTime(null, new DateTimeZone('UTC'));
    $datetime->modify($config['db']['del']);
-   $where_clause = ' AND datetime>='.$datetime->format('Y-m-d H:i:s');;
+   $where_clause = ' AND datetime>='.$datetime->format('Y-m-d H:i:s');
 
 
    $data = $db->get($config['db']['table_news'], $where_clause);
