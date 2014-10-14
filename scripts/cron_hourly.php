@@ -99,15 +99,16 @@ echo PHP_EOL;
    //provide the caching folder
    $feed->set_cache_location('cache');
 
-
+   //-----------------------------------
    // prepare to randomize the existing imgs .... 
    // for news which which dones not contain its own img.
-   $dir    = 'img/newsimg/static/';
-   $files = scandir($dir);
-   unset($files[0]);
-   unset($files[1]);
-   shuffle($files);
-   $rand_img_id = 0;
+      $dir    = 'img/newsimg/static/';
+      $files = scandir($dir);
+      unset($files[0]);
+      unset($files[1]);
+      shuffle($files);
+      $rand_img_id = 0;
+   //-----------------------------------
 
    
 $log_data = new Logging();
@@ -141,24 +142,85 @@ $log_data->lfile($config['log']['dir'].'data.log');
          if($i == 5){break;} 
 
 
-$log_data->lwrite(  PHP_EOL.
-               print_r($item->feed->data['ordered_items'],true).
-               PHP_EOL
-            );
-die;
+// $log_data->lwrite(  PHP_EOL.
+//                print_r($item->feed->data['ordered_items'],true).
+//                PHP_EOL
+//             );
+// die;
 
 
          $subdir = ($i%2?'one':'two');
 
-//          // extract current feed array
-//          $x = $item->feed->data['child']['']
-//                                  ['rss'][0]
-//                                  ['child']['']
-//                                  ['channel'][0]
-//                                  ['child']['']
-//                                  ['item'][$i]
-//                                  ['child']
-//                                  [$config['feed_url'].$symbol];
+         // extract current feed array
+         foreach($item->feed->data['ordered_items'] as $val){
+            $data = ['symbol'      => $symbol,
+                     'title'       => $val['data']['child']['']['title'][0]['data'],
+                     'url'         => $val['data']['child']['']['link'][0]['data'],
+                     'description' => $val['data']['child']['']['description'][0]['data'],
+                     'datetime'    => $val['data']['date']['raw'],
+                  ];
+
+            //the url decoded
+            $data['url'] = urldecode( explode('&', explode("?q=",$data['url'])[1] )[0] );  
+   
+            // img of current feed
+            if(isset($val['data']['http://www.bing.com:80/news/search?format=rss&q=aaa']['Image'])){
+               //img from feed
+               $img_url = $val['data']['http://www.bing.com:80/news/search?format=rss&q=aaa']['Image'][0]['data'];
+               //corrected img url
+               $img_url = urldecode( explode('&', explode("?q=",$img_url)[1] )[0] ); 
+            
+
+               //---------------------
+               //get & store external img.
+
+                  // path of img to store
+                  $img_path = dirname(dirname(__FILE__)).'/img/newsimg/'.$subdir.'/';
+
+                  // rename img to integer
+                  $num_of_files = iterator_count(
+                                       new FilesystemIterator( $img_path, 
+                                                               FilesystemIterator::SKIP_DOTS
+                                                            )
+                                       ) ;
+
+                  // file extension
+                  $ext = $config['extensions'][exif_imagetype($img_url)];
+
+
+                  $img = $img_path.$num_of_files.'.'.$ext;
+
+                  // set url of img
+                  $img_localurl = $subdir.'/'.$num_of_files.'.'.$ext;
+
+                  // store img from external url to local server
+                  copy($img_url, $img);
+
+                  // resize img to 480x320 
+                  $image = new SimpleImage(); 
+                  $image->load($img); 
+                  $image->resize(480,320); 
+                  $image->save($img);
+
+               //---------------------
+
+            }else{
+               // randomized img from stored imgs.
+               $data['image'] = '';
+
+               // $rand_img_id is from lines 102~111
+               $img_localurl='static/'.$files[$rand_img_id];
+               $rand_img_id++;
+
+            }
+            // set the img url to our data
+            $data['image'] = $img_localurl;
+
+            _print_r($data);
+
+
+
+
 
 //          // img of current feed
 //          if(isset($x['Image'])){
