@@ -25,7 +25,7 @@ $config['db']['table_queries'] = 'queries';
 $config['baseurl'] = 'http://localhost:8080';
 
 
-$config['db']['del'] = '-2 days';
+$config['db']['del'] = '-1 days';
 
 
 $config['feed_url'] = 'http://www.bing.com:80/news/search?format=rss&q=';
@@ -42,6 +42,25 @@ $config['symbols'] = [ 	'aaa',
 						'yhoo',
 					];
 
+$config['extensions'] = [
+						    IMAGETYPE_GIF => "gif",
+						    IMAGETYPE_JPEG => "jpg",
+						    IMAGETYPE_PNG => "png",
+						    // IMAGETYPE_SWF => "swf",
+						    // IMAGETYPE_PSD => "psd",
+						    // IMAGETYPE_BMP => "bmp",
+						    // IMAGETYPE_TIFF_II => "tiff",
+						    // IMAGETYPE_TIFF_MM => "tiff",
+						    // IMAGETYPE_JPC => "jpc",
+						    // IMAGETYPE_JP2 => "jp2",
+						    // IMAGETYPE_JPX => "jpx",
+						    // IMAGETYPE_JB2 => "jb2",
+						    // IMAGETYPE_SWC => "swc",
+						    // IMAGETYPE_IFF => "iff",
+						    // IMAGETYPE_WBMP => "wbmp",
+						    // IMAGETYPE_XBM => "xbm",
+						    // IMAGETYPE_ICO => "ico"
+						];
 
 $config['log']['dir']  = dirname(dirname(__FILE__)).'/logs/';
 $config['log']['file'] = 'log.log';

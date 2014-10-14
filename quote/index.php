@@ -97,6 +97,19 @@ foreach( $objYahooStock->getQuotes() as $code => $stock)
 
     <link href="css/buttons.css" rel="stylesheet" media="screen">
 
+    <!-- Autocomplete css -->
+    <link rel="stylesheet" type="text/css" href="http://localhost/stayplay/public/user/claim/common/css/jquery-ui-1.8.5.custom.css">
+    <style type="text/css">
+      .ui-autocomplete{font-size: 14px; z-index: 1;}
+      .ui-autocomplete ul{
+        border-color: #ccc #aaa #aaa #ccc
+        font-size : 12px;
+      }
+      .ui-autocomplete .ui-autocomplete-category{
+        color: #012950
+      }
+    </style>
+
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
         <script src="js/html5shiv.min.js"></script>
@@ -286,7 +299,7 @@ shuffle($files);
             <aside class="sidebar">
                 <div class="block">
                     <div id="search_div" class="input-group">
-                      <input type="text" placeholder="Search for stocks..." class="form-control">
+                      <input id="search_input" type="text" placeholder="Search for stocks..." class="form-control">
                       <span class="input-group-btn">
                         <button class="btn btn-primary" type="button"><i class="fa fa-search"></i></button>
                       </span>
@@ -465,7 +478,12 @@ STWT.Widget({container: 'stocktwits-widget-news', symbol: '<?php $str = $stock[0
 </div>
 
 <!-- Scripts -->
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<!-- <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script> -->
+<script type="text/javascript" src="http://localhost/jquery/jquery-latest.js"></script>
+<!-- <script src="//code.jquery.com/ui/1.11.1/jquery-ui.js"></script> -->
+<!-- <script type="text/javascript" src="http://localhost/jquery/jquery-ui.min.js"></script> -->
+<script type="text/javascript" src="http://localhost/stayplay/public/js/jquery-ui.min.js"></script>
+
 <script src="js/jquery.cookie.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.2.0/js/bootstrap.min.js"></script>
 <script src="js/wow.min.js"></script>

@@ -171,13 +171,6 @@
                                     </h4>
                                 </li>
                             <?php endforeach?>
-                                <!-- 
-                                    <li><h4><a href="#">AAPL</a></h4></li>
-                                    <li><h4><a href="#">GOOG</a></h4></li>
-        							<li><h4><a href="#">BAC</a></h4></li>
-        							<li><h4><a href="#">MSFT</a></h4></li>
-        							<li><h4><a href="#">EBAY</a></h4></li> 
-                                -->
                         </ol>
                     </div>
                 </div>

@@ -135,7 +135,7 @@ class Database{
 	}
 
 
-	function del($table,/*$range*/ $where_clause=false){
+	function del($table, $where_clause=false){
 		self::connect();
 
 		$sql = 'DELETE FROM '.$table.' WHERE 1 ';
@@ -145,7 +145,7 @@ class Database{
 		}
 
 		$sql .= ';';
-
+// _print_r($sql);
 		$this->sql = $sql;
 
 		mysqli_query($this->con,$sql);
@@ -166,6 +166,15 @@ class Database{
 		self::disconnect();
 	}
 
+	function query($sql=false){
+		self::connect();
+
+		$this->sql = $sql;
+
+		mysqli_query($this->con,$sql);
+
+		self::disconnect();
+	}
 }
 
 
