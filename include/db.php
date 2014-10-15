@@ -145,7 +145,7 @@ class Database{
 		}
 
 		$sql .= ';';
-// _print_r($sql);
+
 		$this->sql = $sql;
 
 		mysqli_query($this->con,$sql);

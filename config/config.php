@@ -6,30 +6,34 @@
  */
 $config['db']['server']   = 'localhost';
 $config['db']['database'] = 'whacker_news';
-// $config['db']['username'] = 'whacker_news_user';
+// $config['db']['username'] = 'whacker_news';
 // $config['db']['password'] = 'h7ml/_W!';
 $config['db']['username'] = 'root';
 $config['db']['password'] = 'password';
 
 
-
 /**
  * Database tables
  */
-$config['db']['table_news'] = 'news';
+$config['db']['table_news']    = 'news';
 $config['db']['table_queries'] = 'queries';
 
 
+/**
+ * Delete news older than ...
+ */
+$config['db']['del'] = '-1 days';
 
+
+
+
+/**
+ * Base url
+ */
 // $config['baseurl'] = 'http://whacker.com';
 $config['baseurl'] = 'http://localhost:8080';
 
 
-$config['db']['del'] = '-1 days';
-
-
-$config['feed_url'] = 'http://www.bing.com:80/news/search?format=rss&q=';
-// $config['feed_url'] = 'http://articlefeeds.nasdaq.com/nasdaq/symbols?symbol='.$symbol,
 
 
 $config['symbols'] = [ 	'aaa',
@@ -41,6 +45,12 @@ $config['symbols'] = [ 	'aaa',
 						'msft',
 						'yhoo',
 					];
+
+
+$config['feed_url'] = 'http://www.bing.com:80/news/search?format=rss&q=';
+// $config['feed_url'] = 'http://articlefeeds.nasdaq.com/nasdaq/symbols?symbol='.$symbol,
+
+
 
 $config['extensions'] = [
 						    IMAGETYPE_GIF => "gif",
@@ -61,6 +71,8 @@ $config['extensions'] = [
 						    // IMAGETYPE_XBM => "xbm",
 						    // IMAGETYPE_ICO => "ico"
 						];
+
+
 
 $config['log']['dir']  = dirname(dirname(__FILE__)).'/logs/';
 $config['log']['file'] = 'log.log';
