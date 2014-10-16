@@ -20,15 +20,15 @@ $('#search_input').catAutocomplete({
     
     // Remote source definition
     source: function(request, response) {
-        console.log(request)
+        // console.log(request)
         $.ajax({
             type:'GET',
             // url: 'http://localhost:8080/get_stocks.php?q='+$('#search_div').children('input').val(),
-            url: '../../get_stocks.php?q='+$('#search_div').children('input').val(),
+            url: '../get_stocks.php?q='+$('#search_div').children('input').val(),
             delay: 1
         })
         .done ( function(data){
-            console.log(data)
+            // console.log(data)
             response($.map(JSON.parse(data), function(item) {
                 return {
                     label: item.symbol,

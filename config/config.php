@@ -31,20 +31,30 @@ $config['db']['del'] = '-1 days';
  * Base url
  */
 // $config['baseurl'] = 'http://whacker.com';
-$config['baseurl'] = 'http://localhost:8080';
+$config['baseurl'] = 'http://localhost/wealthhacker/src';
 
 
+// used db for this
+//
+///**
+// * Stickers list for dropdown
+// */
+//include('stktick.php');
+//
 
-
-$config['symbols'] = [ 	'aaa',
-						'aapl',
-						'bac',
-						'bbb',
-						'ebay',
-						'goog',
-						'msft',
-						'yhoo',
-					];
+/**
+ * Symbols list for news
+ */
+$config['symbols_news'] = [ 	
+							'aaa',
+							'aapl',
+							'bac',
+							'bbb',
+							'ebay',
+							'goog',
+							'msft',
+							'yhoo',
+						];
 
 
 $config['feed_url'] = 'http://www.bing.com:80/news/search?format=rss&q=';

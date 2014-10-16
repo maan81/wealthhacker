@@ -44,12 +44,13 @@
    $sql = ' AND symbol LIKE "'.$q.'%" ';
 
    // order by
-   $sql .= ' ORDER BY count DESC ';
+   $sql .= ' ORDER BY count DESC , symbol ASC';
 
    //limit
    $sql .= ' LIMIT 10 ';
 
    $view_data['queries'] = $db->get($config['db']['table_queries'],$sql);
+   // _print_r($db->sql,false);
    // _print_r($view_data);   
 
 //==============================================================================

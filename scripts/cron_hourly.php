@@ -114,7 +114,7 @@
 
 
    //grab feed for each symbol & process & push into db
-   foreach ($config['symbols'] as $symbol) {
+   foreach ($config['symbols_news'] as $symbol) {
 
       $feed->set_feed_url(array(
          $config['feed_url'].$symbol,
