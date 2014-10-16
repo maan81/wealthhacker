@@ -1,0 +1,2 @@
+RewriteEngine On    # Turn on the rewriting engine
+RewriteRule    ^quote/([A-Z]+)/?$    quote/index.php?symbol=$1    [NC,L]

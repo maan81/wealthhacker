@@ -73,9 +73,12 @@
 
    }
 
+   print_r('Deleted Imgs : ');
+   print_r($data);
+
 //==============================================================================
 
-echo PHP_EOL;
+// echo PHP_EOL;
 // die;
 
 //==============================================================================
@@ -105,9 +108,6 @@ echo PHP_EOL;
       $rand_img_id = 0;
    //-----------------------------------
 
-   
-$log_data = new Logging();
-$log_data->lfile($config['log']['dir'].'data.log');
 
    // number of item
    $item_count = 0;
@@ -139,14 +139,10 @@ $log_data->lfile($config['log']['dir'].'data.log');
          $i++; 
          if($i == 5){break;} 
 
-$val = $item->feed->data['items'][$i]->data;
-// print_r($val);
-// print_r($val['']);//.
-// print_r($val['child']['http://www.bing.com:80/news/search?format=rss&q='.$symbol]);//.
-echo PHP_EOL;
-// // print_r($item->feed->data['items'][$i]->data['child']);//.
+            // current item
+            $val = $item->feed->data['items'][$i]->data;
 
-
+            // current subdir
             $subdir = ($i%2?'one':'two');
 
             $data = ['symbol'      => $symbol,
@@ -171,27 +167,24 @@ echo PHP_EOL;
 
             // do not store & process if current item is already in db
             $tmp = $db->get($config['db']['table_news'],' AND url="'.$data['url'].'" ');
-print_r($db->sql);
-print_r($tmp);
-// die;
             if(count($tmp)) continue;
 
-// print_r($data);
 
    
             // img of current feed
             if(isset($val['child']['http://www.bing.com:80/news/search?format=rss&q='.$symbol]['Image'])){
 
-               //img from feed
+               // get img from feed
                $img_url = $val['child']
                               ['http://www.bing.com:80/news/search?format=rss&q='.$symbol]
                               ['Image'][0]['data'];
+               
                //corrected img url
                $img_url = urldecode( explode('&', explode("?q=",$img_url)[1] )[0] ); 
             
-               // $img_localurl = $img_url;
+
                //---------------------
-               //download & store external img. into our server
+               //download & store img. from external server into our server ...
 
                   // path of img to store
                   $img_path = dirname(dirname(__FILE__)).'/img/newsimg/'.$subdir.'/';
@@ -199,23 +192,28 @@ print_r($tmp);
                   // get unique integer to set filename
                   while(true){
                      $item_count++;
-                     if(empty(glob ($img_path.'/'.$item_count.'.*')))
+                     $g = glob ($img_path.'/'.$item_count.'.*');
+                     if(empty($g))
                         break;
                   }
 
 
                   // file extension
                   $ext = @$config['extensions'][exif_imagetype($img_url)];
+                  
+                  // if external img err, use our server's imgs.
                   if( ! $ext ){
    
-                     // rename img to integer
+                     // select a particular rand. img.
+                     // $rand_img_id is from lines 97~105
+
                      $img_localurl='static/'.$files[$rand_img_id];
                      $rand_img_id++;
                      $rand_img_id =  ($rand_img_id > count($files))? 0 : $rand_img_id;
 
                   }else{
 
-                     // rename img to integer
+                     // rename the downloaded img to integer
                      $img = $img_path.$item_count.'.'.$ext;
 
                      // set url of img
@@ -236,16 +234,19 @@ print_r($tmp);
 
             }else{
 
-               // $rand_img_id is from lines 102~111
+               // select a particular rand. img.
+               // $rand_img_id is from lines 97~105
+
                $img_localurl='static/'.$files[$rand_img_id];
                $rand_img_id++;
-               $rand_img_id =  ($rand_img_id >= count($files))? 2 : $rand_img_id;
+               $rand_img_id =  ($rand_img_id >= count($files))? 0 : $rand_img_id;
 
             }
             // set the img url to our data
             $data['image'] = $img_localurl;
 
-print_r($data);
+            print_r('Stored Img :');
+            print_r($data);
             // die;
 
             // store in db
