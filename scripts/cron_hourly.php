@@ -56,9 +56,9 @@
 
    //------------------
 
-   /*
-      // $data = $db->get($config['db']['table_news'], $where_clause);
+   $data = $db->get($config['db']['table_news'], $where_clause);
 
+   /*
       // // get the ids of the rows to be deleted
       // $ids = [];
       // foreach($data as $key=>$val){
@@ -88,7 +88,7 @@
    // delete old rows having the id
    $db->del($config['db']['table_news'], $where_clause);
 
-   $log_dbchange->lwrite(print_r('Deleted Imgs : ',true));
+   $log_dbchange->lwrite(print_r('Deleted items : ',true));
    $log_dbchange->lwrite(print_r($data,true));
 
 //==============================================================================
@@ -111,18 +111,17 @@
    //provide the caching folder
    $feed->set_cache_location('cache');
 
-   //-----------------------------------
-   // prepare to randomize the existing imgs .... 
-   // for news which which dones not contain its own img.
-      $dir    = 'img/newsimg/static/';
-      $files = scandir($src.'/'.$dir);
-      unset($files[0]);
-      unset($files[1]);
-      shuffle($files);
-      $files = array_values($files);
-      $rand_img_id = 0;
-   //-----------------------------------
-
+   // //-----------------------------------
+   // // prepare to randomize the existing imgs .... 
+   // // for news which which dones not contain its own img.
+   //    $dir    = 'img/newsimg/static/';
+   //    $files = scandir($src.'/'.$dir);
+   //    unset($files[0]);
+   //    unset($files[1]);
+   //    shuffle($files);
+   //    $files = array_values($files);
+   //    $rand_img_id = 0;
+   // //-----------------------------------
 
    // number of item
    $item_count = 0;
@@ -154,39 +153,38 @@
          $i++; 
          if($i == 5){break;} 
 
-         /*    
-            // // current item
-            // $val = $item->feed->data['items'][$i]->data;
+         // current item
+         $val = $item->feed->data['items'][$i]->data;
 
-            // // current subdir
-            // $subdir = ($i%2?'one':'two');
+         // current subdir
+         $subdir = ($i%2?'one':'two');
 
-            // $data = ['symbol'      => $symbol,
-            //          'title'       => $val['child']['']['title'][0]['data'],
-            //          'url'         => $val['child']['']['link'][0]['data'],
-            //          'description' => $val['child']['']['description'][0]['data'],
-            //          'datetime'    => date("Y-m-d H:i:s",$val['date']['parsed']),
-            //       ];
-
-
-            // //the url decoded
-            // $data['url'] = urldecode(
-            //                            explode( "=",
-            //                                     explode( "&",
-            //                                              explode(
-            //                                                       "?",
-            //                                                       $data['url']
-            //                                                    )[1]
-            //                                           )[3]
-            //                                  )[1]
-            //                         );
-
-            // // do not store & process if current item is already in db
-            // $tmp = $db->get($config['db']['table_news'],' AND url="'.$data['url'].'" ');
-            // if(count($tmp)) continue;
+         $data = ['symbol'      => $symbol,
+                  'title'       => $val['child']['']['title'][0]['data'],
+                  'url'         => $val['child']['']['link'][0]['data'],
+                  'description' => $val['child']['']['description'][0]['data'],
+                  'datetime'    => date("Y-m-d H:i:s",$val['date']['parsed']),
+               ];
 
 
+         //the url decoded
+         $data['url'] = urldecode(
+                                    explode( "=",
+                                             explode( "&",
+                                                      explode(
+                                                               "?",
+                                                               $data['url']
+                                                            )[1]
+                                                   )[3]
+                                          )[1]
+                                 );
 
+         // do not store & process if current item is already in db
+         $tmp = $db->get($config['db']['table_news'],' AND url="'.$data['url'].'" ');
+         if(count($tmp)) continue;
+
+
+         /*
             // // img of current feed
             // if(isset($val['child']['http://www.bing.com:80/news/search?format=rss&q='.$symbol]['Image'])){
 
@@ -268,9 +266,11 @@
          
          // store in db
          $db->insert($config['db']['table_news'],$data);
+
+         $log_dbchange->lwrite(print_r('Stored Img :',true));
+         $log_dbchange->lwrite(print_r($data,true));
       }
    }
-
 //==============================================================================
 
 
