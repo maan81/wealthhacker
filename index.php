@@ -57,7 +57,7 @@
 
      for($i=0;$i<count($view_data['news']);$i++){
         
-        $image = ( ($i%2) ? ('two/'.$images1[$i]) : ('one/'.$images2[$i]) );
+        $image = ( ($i%2) ? ('one/'.$images1[$i]) : ('two/'.$images2[$i]) );
 
         $view_data['news'][$i]['image'] = $image;
      }
