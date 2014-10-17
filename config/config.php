@@ -46,15 +46,47 @@ $config['baseurl'] = 'http://localhost/wealthhacker/src';
  * Symbols list for news
  */
 $config['symbols_news'] = [ 	
-							'aaa',
-							'aapl',
-							'bac',
-							'bbb',
-							'ebay',
-							'goog',
+							'amzn',
+							'bp',
 							'msft',
+							'cvs',
+							'cat',
+							'ford',
+							'amd',
+							'orcl',
+							'pg',
+							'mcd',
+							'mu',
+							'mrk',
+							'xom',
+							'ko',
+							'csco',
+							'intc',
+							'bidu',
+							'jpm',
+							'wag',
+							'pfe',
+							'att',
+							'jnj',
 							'yhoo',
+							'vz',
+							'tsla',
+							'qcom',
+							'wfc',
+							'dal',
+							'dis',
+							'mmm',
+							// 'aaa',
+							// 'aapl',
+							// 'bac',
+							// 'bbb',
+							// 'ebay',
+							// 'goog',
+							// 'msft',
+							// 'yhoo',
 						];
+
+
 
 
 $config['feed_url'] = 'http://www.bing.com:80/news/search?format=rss&q=';

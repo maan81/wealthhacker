@@ -56,32 +56,37 @@
 
    //------------------
 
-   $data = $db->get($config['db']['table_news'], $where_clause);
+   /*
+      // $data = $db->get($config['db']['table_news'], $where_clause);
 
-   // get the ids of the rows to be deleted
-   $ids = [];
-   foreach($data as $key=>$val){
-      $ids[] = $val['id'];
-   }
+      // // get the ids of the rows to be deleted
+      // $ids = [];
+      // foreach($data as $key=>$val){
+      //    $ids[] = $val['id'];
+      // }
 
 
-   // generate where clause from ids
-   $where_clause = ' AND id IN ('.implode(',', $ids).')';
+      // // generate where clause from ids
+      // $where_clause = ' AND id IN ('.implode(',', $ids).')';
+
+      // // delete old rows having the id
+      // $db->del($config['db']['table_news'], $where_clause);
+
+      // //delete old imgs of the ids
+      // foreach($data as $key=>$val){
+
+      //    //but dont delete the no-image
+      //    if(strpos($val['image'],'static') !== false) {
+      //       continue;
+      //    }
+
+      //    unlink($src.'/img/newsimg/'.$val['image']);
+
+      // }
+   */
 
    // delete old rows having the id
    $db->del($config['db']['table_news'], $where_clause);
-
-   //delete old imgs of the ids
-   foreach($data as $key=>$val){
-
-      //but dont delete the no-image
-      if(strpos($val['image'],'static') !== false) {
-         continue;
-      }
-
-      unlink($src.'/img/newsimg/'.$val['image']);
-
-   }
 
    $log_dbchange->lwrite(print_r('Deleted Imgs : ',true));
    $log_dbchange->lwrite(print_r($data,true));
@@ -149,118 +154,120 @@
          $i++; 
          if($i == 5){break;} 
 
-            // current item
-            $val = $item->feed->data['items'][$i]->data;
+         /*    
+            // // current item
+            // $val = $item->feed->data['items'][$i]->data;
 
-            // current subdir
-            $subdir = ($i%2?'one':'two');
+            // // current subdir
+            // $subdir = ($i%2?'one':'two');
 
-            $data = ['symbol'      => $symbol,
-                     'title'       => $val['child']['']['title'][0]['data'],
-                     'url'         => $val['child']['']['link'][0]['data'],
-                     'description' => $val['child']['']['description'][0]['data'],
-                     'datetime'    => date("Y-m-d H:i:s",$val['date']['parsed']),
-                  ];
-
-
-            //the url decoded
-            $data['url'] = urldecode(
-                                       explode( "=",
-                                                explode( "&",
-                                                         explode(
-                                                                  "?",
-                                                                  $data['url']
-                                                               )[1]
-                                                      )[3]
-                                             )[1]
-                                    );
-
-            // do not store & process if current item is already in db
-            $tmp = $db->get($config['db']['table_news'],' AND url="'.$data['url'].'" ');
-            if(count($tmp)) continue;
+            // $data = ['symbol'      => $symbol,
+            //          'title'       => $val['child']['']['title'][0]['data'],
+            //          'url'         => $val['child']['']['link'][0]['data'],
+            //          'description' => $val['child']['']['description'][0]['data'],
+            //          'datetime'    => date("Y-m-d H:i:s",$val['date']['parsed']),
+            //       ];
 
 
-   
-            // img of current feed
-            if(isset($val['child']['http://www.bing.com:80/news/search?format=rss&q='.$symbol]['Image'])){
+            // //the url decoded
+            // $data['url'] = urldecode(
+            //                            explode( "=",
+            //                                     explode( "&",
+            //                                              explode(
+            //                                                       "?",
+            //                                                       $data['url']
+            //                                                    )[1]
+            //                                           )[3]
+            //                                  )[1]
+            //                         );
 
-               // get img from feed
-               $img_url = $val['child']
-                              ['http://www.bing.com:80/news/search?format=rss&q='.$symbol]
-                              ['Image'][0]['data'];
+            // // do not store & process if current item is already in db
+            // $tmp = $db->get($config['db']['table_news'],' AND url="'.$data['url'].'" ');
+            // if(count($tmp)) continue;
+
+
+
+            // // img of current feed
+            // if(isset($val['child']['http://www.bing.com:80/news/search?format=rss&q='.$symbol]['Image'])){
+
+            //    // get img from feed
+            //    $img_url = $val['child']
+            //                   ['http://www.bing.com:80/news/search?format=rss&q='.$symbol]
+            //                   ['Image'][0]['data'];
                
-               //corrected img url
-               $img_url = urldecode( explode('&', explode("?q=",$img_url)[1] )[0] ); 
+            //    //corrected img url
+            //    $img_url = urldecode( explode('&', explode("?q=",$img_url)[1] )[0] ); 
             
 
-               //---------------------
-               //download & store img. from external server into our server ...
+            //    //---------------------
+            //    //download & store img. from external server into our server ...
 
-                  // path of img to store
-                  $img_path = dirname(dirname(__FILE__)).'/img/newsimg/'.$subdir.'/';
+            //       // path of img to store
+            //       $img_path = dirname(dirname(__FILE__)).'/img/newsimg/'.$subdir.'/';
 
-                  // get unique integer to set filename
-                  while(true){
-                     $item_count++;
-                     $g = glob ($img_path.'/'.$item_count.'.*');
-                     if(empty($g))
-                        break;
-                  }
+            //       // get unique integer to set filename
+            //       while(true){
+            //          $item_count++;
+            //          $g = glob ($img_path.'/'.$item_count.'.*');
+            //          if(empty($g))
+            //             break;
+            //       }
 
 
-                  // file extension
-                  $ext = @$config['extensions'][exif_imagetype($img_url)];
+            //       // file extension
+            //       $ext = @$config['extensions'][exif_imagetype($img_url)];
                   
-                  // if external img err, use our server's imgs.
-                  if( ! $ext ){
-   
-                     // select a particular rand. img.
-                     // $rand_img_id is from lines 97~105
+            //       // if external img err, use our server's imgs.
+            //       if( ! $ext ){
 
-                     $img_localurl='static/'.$files[$rand_img_id];
-                     $rand_img_id++;
-                     $rand_img_id =  ($rand_img_id > count($files))? 0 : $rand_img_id;
+            //          // select a particular rand. img.
+            //          // $rand_img_id is from lines 97~105
 
-                  }else{
+            //          $img_localurl='static/'.$files[$rand_img_id];
+            //          $rand_img_id++;
+            //          $rand_img_id =  ($rand_img_id > count($files))? 0 : $rand_img_id;
 
-                     // rename the downloaded img to integer
-                     $img = $img_path.$item_count.'.'.$ext;
+            //       }else{
 
-                     // set url of img
-                     $img_localurl = $subdir.'/'.$item_count.'.'.$ext;
+            //          // rename the downloaded img to integer
+            //          $img = $img_path.$item_count.'.'.$ext;
 
-                     // store img from external url to local server
-                     copy($img_url, $img);
+            //          // set url of img
+            //          $img_localurl = $subdir.'/'.$item_count.'.'.$ext;
 
-                     // resize img to 480x320 
-                     $image = new SimpleImage(); 
-                     $image->load($img); 
-                     $image->resize(480,320); 
-                     $image->save($img);
+            //          // store img from external url to local server
+            //          copy($img_url, $img);
 
-                  }
+            //          // resize img to 480x320 
+            //          $image = new SimpleImage(); 
+            //          $image->load($img); 
+            //          $image->resize(480,320); 
+            //          $image->save($img);
 
-               //---------------------
+            //       }
 
-            }else{
+            //    //---------------------
 
-               // select a particular rand. img.
-               // $rand_img_id is from lines 97~105
+            // }else{
 
-               $img_localurl='static/'.$files[$rand_img_id];
-               $rand_img_id++;
-               $rand_img_id =  ($rand_img_id >= count($files))? 0 : $rand_img_id;
+            //    // select a particular rand. img.
+            //    // $rand_img_id is from lines 97~105
 
-            }
-            // set the img url to our data
-            $data['image'] = $img_localurl;
+            //    $img_localurl='static/'.$files[$rand_img_id];
+            //    $rand_img_id++;
+            //    $rand_img_id =  ($rand_img_id >= count($files))? 0 : $rand_img_id;
+
+            // }
+            // // set the img url to our data
+            // $data['image'] = $img_localurl;
 
             $log_dbchange->lwrite(print_r('Stored Img :',true));
             $log_dbchange->lwrite(print_r($data,true));
             // die;
-
-            // store in db
-            $db->insert($config['db']['table_news'],$data);
+         */
+         
+         // store in db
+         $db->insert($config['db']['table_news'],$data);
       }
    }
 

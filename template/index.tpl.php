@@ -73,7 +73,7 @@
                 <div class="content-box box-primary">
                     <div class="row">
                         <div class="col-md-4">
-                            <img src="img/newsimg/static/market-news-7.jpg" alt="" class="img-responsive">
+                            <img src="img/newsimg/one/market-news-7.jpg" alt="" class="img-responsive">
                         </div>
                         <div class="col-md-8">
                             <h1 class="content-box-title">Subscribe To Wealth Hacker Updates</h1>
