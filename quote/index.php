@@ -98,7 +98,8 @@ foreach( $objYahooStock->getQuotes() as $code => $stock)
     <link href="css/buttons.css" rel="stylesheet" media="screen">
 
     <!-- Autocomplete css -->
-    <link rel="stylesheet" type="text/css" href="http://localhost/stayplay/public/user/claim/common/css/jquery-ui-1.8.5.custom.css">
+    <!-- <link rel="stylesheet" type="text/css" href="http://localhost/stayplay/public/user/claim/common/css/jquery-ui-1.8.5.custom.css"> -->
+    <link rel="stylesheet" type="text/css" href="css/jquery-ui-1.8.5.custom.css">
     <style type="text/css">
       .ui-autocomplete{font-size: 14px; z-index: 1;}
       .ui-autocomplete ul{
