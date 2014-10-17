@@ -45,6 +45,16 @@
    $datetime->modify($config['db']['del']);
    $where_clause = ' AND datetime<="'.$datetime->format('Y-m-d H:i:s').'"';
 
+   //------------------
+   //new logger to store record updated & deleted
+
+      // Logging class initialization
+      $log_dbchange = new Logging();
+
+      // set path and name of log file
+      $log_dbchange->lfile($config['log']['dir'].$config['log']['file_dbchange'].$datetime->format('Y-m-d H:i:s'));
+
+   //------------------
 
    $data = $db->get($config['db']['table_news'], $where_clause);
 
@@ -73,8 +83,8 @@
 
    }
 
-   print_r('Deleted Imgs : ');
-   print_r($data);
+   $log_dbchange->lwrite(print_r('Deleted Imgs : ',true));
+   $log_dbchange->lwrite(print_r($data,true));
 
 //==============================================================================
 
@@ -245,8 +255,8 @@
             // set the img url to our data
             $data['image'] = $img_localurl;
 
-            print_r('Stored Img :');
-            print_r($data);
+            $log_dbchange->lwrite(print_r('Stored Img :',true));
+            $log_dbchange->lwrite(print_r($data,true));
             // die;
 
             // store in db

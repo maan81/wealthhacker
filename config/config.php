@@ -85,7 +85,8 @@ $config['extensions'] = [
 
 
 $config['log']['dir']  = dirname(dirname(__FILE__)).'/logs/';
-$config['log']['file'] = 'log.log';
+$config['log']['file'] = 'cron_hourly';
+$config['log']['file_dbchange'] = 'db_change_';
 
 
 /**
