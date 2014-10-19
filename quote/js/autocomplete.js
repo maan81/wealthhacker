@@ -10,6 +10,15 @@ $.widget("custom.catAutocomplete", $.ui.autocomplete, {
             }
             that._renderItemData(ul, item);
         });
+    },
+
+    _renderItem: function(ul, item){
+        var re = new RegExp("^" + this.term, "i") ;
+        var t = item.label.replace(re,"<span style='color:#b00;'>"+this.term+"</span>");
+        return $( "<li></li>" )
+                                .data( "item.autocomplete", item )
+                                .append( "<a>" + t + "</a>" )
+                                .appendTo( ul );
     }
 });
 
@@ -24,7 +33,8 @@ $('#search_input').catAutocomplete({
         $.ajax({
             type:'GET',
             // url: 'http://localhost:8080/get_stocks.php?q='+$('#search_div').children('input').val(),
-            url: '../get_stocks.php?q='+$('#search_div').children('input').val(),
+            // url: '../get_stocks.php?q='+$('#search_div').children('input').val(),
+            url: '../get_stocks.php?q='+request.term,
             delay: 1
         })
         .done ( function(data){

@@ -28,6 +28,7 @@ class Database{
 			$log->lwrite("Failed to connect to MySQL: " . mysqli_connect_error());
 			die;
 		}
+		mysqli_set_charset($this->con, 'utf8');
 	}
 	function disconnect(){
 
