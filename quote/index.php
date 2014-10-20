@@ -1,5 +1,6 @@
 <?php
 include_once('funct.php');
+require_once('../config/config.php');
 
 $objYahooStock = new YahooStock;
  
@@ -42,7 +43,6 @@ $objYahooStock->addStock($_GET['symbol']);
   //update for valid symbol
   if($s){
     //include settings
-    include_once('../config/config.php');
     include_once('../include/db.php');
 
     // init current datetime
@@ -57,12 +57,12 @@ $objYahooStock->addStock($_GET['symbol']);
 
     // clear declared variables
     unset($datetime);
-    unset($config);
+    // unset($config);
   }
   unset($s);
 
 //-------------------------------------------
- 
+
 /**
  * Printing out the data
  */
@@ -302,7 +302,7 @@ shuffle($files);
                     <div id="search_div" class="input-group">
                       <input id="search_input" type="text" placeholder="Search for stocks..." class="form-control">
                       <span class="input-group-btn">
-                        <button class="btn btn-primary" type="button"><i class="fa fa-search"></i></button>
+                        <button id="search_btn" class="btn btn-primary" type="button"><i class="fa fa-search"></i></button>
                       </span>
                     </div><!-- /input-group -->
                 </div>
@@ -505,6 +505,9 @@ STWT.Widget({container: 'stocktwits-widget-news', symbol: '<?php $str = $stock[0
 
 <!-- Autocomplete dropdown on search -->
 <script type="text/javascript" src="js/autocomplete.js"></script>
+<script type="text/javascript">var baseurl = "<?=$config['baseurl']?>"</script>
+<!-- Search button -->
+<script type="text/javascript" src="js/search.js"></script>
 
 </body>
 

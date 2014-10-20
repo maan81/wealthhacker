@@ -36,6 +36,26 @@
 
 
 <body>
+<?php if(isset($session['error'])):?>
+  <style type="text/css">
+    .search_err {
+      background: none repeat scroll 0 0 #555;
+      border: 1px solid black;
+      border-radius: 5px;
+      color: red;
+      cursor: pointer;
+      left: 50%;
+      margin-left: -15.25%;
+      position: absolute;
+      text-align: center;
+      top: 1px;
+      width: 25%;
+      z-index: 100;
+    }
+  </style>
+  <div class="search_err"><?=$session['error']?></div>
+  <?php unset($_SESSION['error'])?>
+<?php endif?>
 
 <!-- Preloader -->
 <div id="preloader">
@@ -211,6 +231,8 @@
 <div id="back-top">
     <a href="#header"><i class="fa fa-chevron-up"></i></a>
 </div>
+
+
 <!-- Scripts -->
 <script src="js/jquery.min.js"></script>
 <script src="js/jquery.cookie.js"></script>
@@ -230,6 +252,8 @@
 <script src="js/syntaxhighlighter/shBrushJScript.js"></script>
 
 <script src="js/app.js"></script>
+
+<script type="text/javascript" src="quote/js/search.js"></script>
 
 </body>
 

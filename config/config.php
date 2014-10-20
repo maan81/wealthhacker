@@ -34,56 +34,41 @@ $config['db']['del'] = '-1 days';
 $config['baseurl'] = 'http://localhost/wealthhacker/src';
 
 
-// used db for this
-//
-///**
-// * Stickers list for dropdown
-// */
-//include('stktick.php');
-//
 
 /**
  * Symbols list for news
  */
 $config['symbols_news'] = [ 	
-							'amzn',
-							'bp',
-							'msft',
-							'cvs',
-							'cat',
-							'ford',
 							'amd',
-							'orcl',
-							'pg',
-							'mcd',
-							'mu',
-							'mrk',
-							'xom',
-							'ko',
-							'csco',
-							'intc',
-							'bidu',
-							'jpm',
-							'wag',
-							'pfe',
+							'amzn',
 							'att',
-							'jnj',
-							'yhoo',
-							'vz',
-							'tsla',
-							'qcom',
-							'wfc',
+							'bidu',
+							'bp',
+							'cat',
+							'csco',
+							'cvs',
 							'dal',
 							'dis',
+							'ford',
+							'intc',
+							'jnj',
+							'jpm',
+							'ko',
+							'mcd',
 							'mmm',
-							// 'aaa',
-							// 'aapl',
-							// 'bac',
-							// 'bbb',
-							// 'ebay',
-							// 'goog',
-							// 'msft',
-							// 'yhoo',
+							'mrk',
+							'msft',
+							'mu',
+							'orcl',
+							'pfe',
+							'pg',
+							'qcom',
+							'tsla',
+							'vz',
+							'wag',
+							'xom',
+							'yhoo',
+							'wfc',
 						];
 
 

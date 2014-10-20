@@ -3,6 +3,8 @@
 //==============================================================================
 // Includes
 
+   session_start();
+$session = $_SESSION;
    require('config/config.php');
    require('include/db.php');
    // require('quote/inc/simplepie.inc');
