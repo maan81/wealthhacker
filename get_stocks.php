@@ -26,7 +26,7 @@
 	$q = filter_var(
 	              $_GET['q'], 
 	              FILTER_VALIDATE_REGEXP,
-	              array("options"=>array("regexp"=>"/^[a-zA-Z]{1,6}$/"))
+	              array("options"=>array("regexp"=>"/^[a-zA-Z_]{1,6}$/"))
 	            );
 
 	if(!$q){

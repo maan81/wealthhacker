@@ -30,7 +30,7 @@ $config['db']['del'] = '-1 days';
 /**
  * Base url
  */
-// $config['baseurl'] = 'http://whacker.com';
+// $config['baseurl'] = 'http://wealthhacker.com';
 $config['baseurl'] = 'http://localhost/wealthhacker/src';
 
 
